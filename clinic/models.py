@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Clinic(models.Model):
     cid = models.AutoField(primary_key=True)
@@ -16,4 +17,3 @@ class Clinic(models.Model):
     class Meta:
         verbose_name = 'Clinic'
         verbose_name_plural = 'Clinics'
-
