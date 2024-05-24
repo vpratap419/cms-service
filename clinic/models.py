@@ -17,3 +17,6 @@ class Clinic(models.Model):
     class Meta:
         verbose_name = 'Clinic'
         verbose_name_plural = 'Clinics'
+
+    def __str__(self):
+        return '{} - {}'.format(self.cid, self.name)

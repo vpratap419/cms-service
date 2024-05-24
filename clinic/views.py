@@ -40,7 +40,7 @@ class UpdateClinic(generics.UpdateAPIView):
     serializer_class = UpdateClinicSerializer
 
     def update(self, request, *args, **kwargs):
-        #INFO("[%s]UpdateClinic:username[%s]",request.user.school.name, request.user.username)
+        # INFO("[%s]UpdateClinic:username[%s]",request.user.school.name, request.user.username)
 
         try:
             clinic = Clinic.objects.get(cid=kwargs['cid'])
@@ -66,4 +66,4 @@ class DeleteClinic(generics.DestroyAPIView):
         serializer = self.get_serializer(clinic, data=request.data, context={'request': request}, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_destroy(instance=clinic)
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
