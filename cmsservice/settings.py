@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'clinic.apps.ClinicConfig',
     'rest_framework',
+    'account',
 ]
 
 MIDDLEWARE = [
