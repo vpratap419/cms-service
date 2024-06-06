@@ -1,44 +1,72 @@
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from account.managers import CustomUserManager
 from clinic.models import Clinic
 
-Gender = (
-    ('NA', 'NA'),
-    ('Male', 'Male'),
-    ('Female', 'Female'),
-    ('Others', 'Others'),
-)
-
-Role = (
-    ('NA', 'NA'),
-    ('Patient', 'Patient'),
-    ('Doctor', 'Doctor'),
-    ('Other', 'Other'),
+GENDER = (
+    ('UNKNOWN', 'Unknown'),
+    ('F', 'Female'),
+    ('M', 'Male'),
 )
 
 
-# Create your models here.
-class User(models.Model):
+class User(AbstractUser):
+    # TODO:: Rename username field to mobile username (django user): Required. 150 characters or fewer. Usernames may
+    #  contain alphanumeric, _, @, +, . and - characters. first_name (django user): Optional (blank=True). 30
+    #  characters or fewer. last_name (django user): Optional (blank=True). 150 characters or fewer. password (django
+    #  user): Required. A hash of, and metadata about, the password.
+
+    ROLE = (
+        ('ADMIN', 'Admin'),
+        ('STAFF', 'Staff'),  # Guest Admin account is to support work to a specific school account
+        ('DOCTOR', 'Doctor'),
+    )
+
     uid = models.AutoField(primary_key=True)
-    cid = models.ForeignKey(Clinic, related_name="clinic_users",
-                            on_delete=models.CASCADE, blank=True)
-    first_name = models.CharField("User First Name", max_length=128)
-    last_name = models.CharField("User Last Name", max_length=128)
-    gender = models.CharField("Gender", choices=Gender, max_length=128, default='NA')
-    u_name = models.CharField("User Name", max_length=200)
-    password = models.CharField("Password", max_length=200)
-    role = models.CharField("Role", choices=Role, max_length=128, default='NA')
-    contact = models.CharField("User Contact", max_length=128)
-    address = models.CharField("User Address", max_length=1024)
-    email_address = models.CharField("User email", max_length=128)
-    created = models.DateTimeField("Clinic Created", auto_now_add=True)
-    updated = models.DateTimeField("Clinic updated", auto_now_add=True)
+    # Relationships
+    cid = models.ForeignKey(Clinic, verbose_name='Clinic', related_name="user_clinic",
+                            on_delete=models.SET_NULL, null=True, blank=True)
+
+    name = models.CharField("Name", max_length=80)
+    role = models.CharField("Role", choices=ROLE, max_length=16)
+    gender = models.CharField("Gender", choices=GENDER, max_length=16)
+    email = models.EmailField("Email", null=True, blank=True)
+    mobile = models.EmailField("Mobile", null=True, blank=True)
+    dob = models.DateField("Date Of Birth", null=True, blank=True)
+    addr = models.CharField("Address Line", max_length=100, null=True, blank=True)
+    city = models.CharField("City", max_length=80, null=True, blank=True)
+    state = models.CharField("State", max_length=60, null=True, blank=True)
+    pin = models.IntegerField("Pin", null=True, blank=True)
+
+    created = models.DateTimeField("Account Created", auto_now_add=True)
+
+    REQUIRED_FIELDS = []  # Required to create an account
+
+    objects = CustomUserManager()
+
+    class Meta:
+        verbose_name = 'user'
+        verbose_name_plural = 'users'
+
+    def __str__(self):
+        return self.username
+
+
+class Doctor(models.Model):
+    did = models.AutoField(primary_key=True)
+    uid = models.OneToOneField(User, on_delete=models.CASCADE)
+    specialization = models.CharField("Specialization", max_length=100, null=True, blank=True)
+    degree = models.CharField("Degree", max_length=100, null=True, blank=True)
+    created = models.DateTimeField("Doctor Created", auto_now_add=True)
+    updated = models.DateTimeField("Doctor updated", auto_now_add=True)
 
     objects = models.Manager()
 
     class Meta:
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
+        verbose_name = 'Doctor'
+        verbose_name_plural = 'Doctors'
 
     def __str__(self):
-        return '{} - {} - {} - {}'.format(self.uid, self.u_name, self.role, self.cid)
-
+        return '{} - {}'.format(self.did, self.uid)

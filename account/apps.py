@@ -1,4 +1,9 @@
 from django.apps import AppConfig
+import logging
+
+logger = logging.getLogger('django.account')
+INFO = logger.info
+ERROR = logger.error
 
 
 class AccountConfig(AppConfig):
