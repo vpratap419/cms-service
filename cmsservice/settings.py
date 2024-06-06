@@ -22,6 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-$#x_kc)ycdkf1w8!_l*x-a5*@xdop%oben#k(e%sx0am$%suq)'
 
+AUTH_USER_MODEL = 'account.User'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'clinic.apps.ClinicConfig',
     'rest_framework',
-    'account',
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
