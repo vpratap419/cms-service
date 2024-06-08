@@ -22,6 +22,7 @@ class User(AbstractUser):
         ('ADMIN', 'Admin'),
         ('STAFF', 'Staff'),  # Guest Admin account is to support work to a specific school account
         ('DOCTOR', 'Doctor'),
+        ('PATIENT', 'Patient'),
     )
 
     uid = models.AutoField(primary_key=True)
@@ -70,3 +71,23 @@ class Doctor(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.did, self.uid)
+
+
+class Patient(models.Model):
+    pid = models.AutoField(primary_key=True)
+    uid = models.OneToOneField(User, on_delete=models.CASCADE)
+    aadhar = models.CharField("Aadhar", max_length=100, null=True, blank=True)
+    pan = models.CharField("Pan", max_length=100, null=True, blank=True)
+    emergency_contact = models.CharField("Contact", max_length=100, null=True, blank=True)
+    insurance = models.CharField("Insurance", max_length=100, null=True, blank=True)
+    created = models.DateTimeField("Patient Created", auto_now_add=True)
+    updated = models.DateTimeField("Patient updated", auto_now_add=True)
+
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = 'Patient'
+        verbose_name_plural = 'Patients'
+
+    def __str__(self):
+        return '{} - {}'.format(self.pid, self.uid)
