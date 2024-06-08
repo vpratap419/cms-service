@@ -6,9 +6,10 @@ from account.managers import CustomUserManager
 from clinic.models import Clinic
 
 GENDER = (
-    ('UNKNOWN', 'Unknown'),
+    ('NA', 'Na'),
     ('F', 'Female'),
     ('M', 'Male'),
+    ('O', 'Other'),
 )
 
 
@@ -34,7 +35,7 @@ class User(AbstractUser):
     role = models.CharField("Role", choices=ROLE, max_length=16)
     gender = models.CharField("Gender", choices=GENDER, max_length=16)
     email = models.EmailField("Email", null=True, blank=True)
-    mobile = models.EmailField("Mobile", null=True, blank=True)
+    mobile = models.CharField("Mobile", max_length=100, null=True, blank=True)
     dob = models.DateField("Date Of Birth", null=True, blank=True)
     addr = models.CharField("Address Line", max_length=100, null=True, blank=True)
     city = models.CharField("City", max_length=80, null=True, blank=True)
@@ -91,3 +92,19 @@ class Patient(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.pid, self.uid)
+
+
+class Staff(models.Model):
+    sid = models.AutoField(primary_key=True)
+    uid = models.OneToOneField(User, on_delete=models.CASCADE)
+    created = models.DateTimeField("Patient Created", auto_now_add=True)
+    updated = models.DateTimeField("Patient updated", auto_now_add=True)
+
+    objects = models.Manager()
+
+    class Meta:
+        verbose_name = 'Staff'
+        verbose_name_plural = 'Staffs'
+
+    def __str__(self):
+        return '{} - {}'.format(self.sid, self.uid)

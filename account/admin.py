@@ -3,20 +3,22 @@ from django.contrib.auth.admin import UserAdmin
 
 from django.contrib.auth.models import Group
 from account.models import User
-from account.models import Doctor, Patient
+from account.models import Doctor, Patient, Staff
 
 
 class CustomUserAdmin(UserAdmin):  # GuardedModelAdmin
     model = User
 
     list_display = ('username', 'uid', 'role', 'cid', 'is_staff',
-                    'name',)  # Set list_filter to activate filters in the main page of userslist
+                    'name', 'gender', 'email', 'mobile', 'dob', 'addr', 'city', 'state', 'pin')  # Set list_filter to
+    # activate filters in the main page of userslist
     list_filter = ('cid', 'role', 'is_staff',
                    'is_active',)  # Set list_filter to activate filters in the right sidebar of the change list page
     # of the admin
     fieldsets = (  # for fields to be used in editing users
         ('Personal Info',
-         {'fields': ('cid', 'role', 'username', 'password', 'name', 'email')}),
+         {'fields': ('cid', 'role', 'username', 'password', 'name', 'email', 'gender', 'mobile', 'dob', 'addr',
+                     'city', 'state', 'pin')}),
         ('Permissions', {'fields': ('is_active', 'is_staff')}),
         ('Preferences', {'fields': ()}),
     )
@@ -25,7 +27,8 @@ class CustomUserAdmin(UserAdmin):  # GuardedModelAdmin
         ('Personal Info', {
             'classes': ('wide',),
             'fields': (
-                'cid', 'role', 'username', 'password1', 'password2', 'name', 'email')}
+                'cid', 'role', 'username', 'password1', 'password2', 'name', 'gender', 'email', 'mobile', 'dob', 'addr',
+                'city', 'state', 'pin')}
          ),
         ('Permissions', {'fields': ('is_staff',)}),
         ('Preferences', {'fields': ()}),
@@ -53,3 +56,10 @@ class PatientAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Patient, PatientAdmin)
+
+
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ('sid', 'uid')
+
+
+admin.site.register(Staff, StaffAdmin)
