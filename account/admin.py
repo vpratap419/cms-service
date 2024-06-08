@@ -52,4 +52,4 @@ class PatientAdmin(admin.ModelAdmin):
     list_display = ('pid', 'aadhar', 'pan', 'emergency_contact', 'insurance', 'uid')
 
 
-admin.site.register(Patient)
+admin.site.register(Patient, PatientAdmin)

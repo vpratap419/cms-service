@@ -1,4 +1,9 @@
 from django.apps import AppConfig
+import logging
+
+logger = logging.getLogger('django.clinic')
+INFO = logger.info
+ERROR = logger.error
 
 
 class RegistrationConfig(AppConfig):
