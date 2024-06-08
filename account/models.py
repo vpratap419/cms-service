@@ -78,7 +78,7 @@ class Patient(models.Model):
     uid = models.OneToOneField(User, on_delete=models.CASCADE)
     aadhar = models.CharField("Aadhar", max_length=100, null=True, blank=True)
     pan = models.CharField("Pan", max_length=100, null=True, blank=True)
-    emergency_contact = models.CharField("Contact", max_length=100, null=True, blank=True)
+    emergency_contact = models.CharField("Emergency_Contact", max_length=100, null=True, blank=True)
     insurance = models.CharField("Insurance", max_length=100, null=True, blank=True)
     created = models.DateTimeField("Patient Created", auto_now_add=True)
     updated = models.DateTimeField("Patient updated", auto_now_add=True)

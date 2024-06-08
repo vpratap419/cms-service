@@ -47,4 +47,9 @@ class DoctorAdmin(admin.ModelAdmin):
 
 admin.site.register(Doctor, DoctorAdmin)
 
+
+class PatientAdmin(admin.ModelAdmin):
+    list_display = ('pid', 'aadhar', 'pan', 'emergency_contact', 'insurance', 'uid')
+
+
 admin.site.register(Patient)
