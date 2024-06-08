@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 
 from django.contrib.auth.models import Group
 from account.models import User
-from account.models import Doctor
+from account.models import Doctor, Patient
 
 
 class CustomUserAdmin(UserAdmin):  # GuardedModelAdmin
@@ -46,3 +46,5 @@ class DoctorAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Doctor, DoctorAdmin)
+
+admin.site.register(Patient)
