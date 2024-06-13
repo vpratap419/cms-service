@@ -24,6 +24,14 @@ class CreateRegistration(generics.CreateAPIView):
         # instances and query sets into JSON. Serializers in DRF provide a convenient way to convert complex data types,
         # such as query sets and model instances, into native Python datatypes that can be easily rendered into
         # JSON or other content types.
+
+        try:
+            registration = Registration.objects.get(pid=request.data['pid'])
+        except Exception as e:
+            print("Do nothing")
+        else:
+            raise NotFound({"message": "Patient with patient id '" + request.data['pid'] + "' not found !"})
+
         serializer = CreateRegistrationSerializer(data=request.data, context={'request': request}, many=False)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
