@@ -32,6 +32,13 @@ class CreateRegistration(generics.CreateAPIView):
         else:
             raise NotFound({"message": "Patient with patient id '" + request.data['pid'] + "' not found !"})
 
+        try:
+            registration = Registration.objects.get(did=request.data['did'])
+        except Exception as e:
+            print("Do nothing")
+        else:
+            raise NotFound({"message": "Doctor with doctor id '" + request.data['did'] + "' not found !"})
+
         serializer = CreateRegistrationSerializer(data=request.data, context={'request': request}, many=False)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)

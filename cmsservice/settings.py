@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'clinic.apps.ClinicConfig',
     'rest_framework',
     'account.apps.AccountConfig',
-    'registration.apps.RegistrationConfig'
+    'registration.apps.RegistrationConfig',
+    'emr.apps.EmrConfig'
 ]
 
 MIDDLEWARE = [
