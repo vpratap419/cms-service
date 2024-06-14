@@ -22,4 +22,5 @@ urlpatterns = [
     path('super-admin/', admin.site.urls),
     path('', include('clinic.urls')),
     path('', include('registration.urls')),
+    path('', include('emr.urls')),
 ]
