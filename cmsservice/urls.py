@@ -23,4 +23,6 @@ urlpatterns = [
     path('', include('clinic.urls')),
     path('', include('registration.urls')),
     path('', include('emr.urls')),
+    path('', include('appointment.urls')),
+    path('', include('payment.urls')),
 ]

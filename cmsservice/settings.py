@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'account.apps.AccountConfig',
     'registration.apps.RegistrationConfig',
-    'emr.apps.EmrConfig'
+    'emr.apps.EmrConfig',
+    'appointment.apps.AppointmentConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
