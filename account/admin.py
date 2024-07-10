@@ -11,16 +11,12 @@ class CustomUserAdmin(UserAdmin):  # GuardedModelAdmin
 
     list_display = ('username', 'uid', 'role', 'cid', 'is_staff',
                     'name', 'gender', 'email', 'mobile', 'dob', 'addr', 'city', 'state', 'pin')  # Set list_filter to
-    # activate filters in the main page of userslist
-    list_filter = ('cid', 'role', 'is_staff',
-                   'is_active',)  # Set list_filter to activate filters in the right sidebar of the change list page
-    # of the admin
+
     fieldsets = (  # for fields to be used in editing users
         ('Personal Info',
          {'fields': ('cid', 'role', 'username', 'password', 'name', 'email', 'gender', 'mobile', 'dob', 'addr',
                      'city', 'state', 'pin')}),
-        ('Permissions', {'fields': ('is_active', 'is_staff')}),
-        ('Preferences', {'fields': ()}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
     # InlineModelAdmin
     add_fieldsets = (  # for fields to be used when creating a user
@@ -30,8 +26,7 @@ class CustomUserAdmin(UserAdmin):  # GuardedModelAdmin
                 'cid', 'role', 'username', 'password1', 'password2', 'name', 'gender', 'email', 'mobile', 'dob', 'addr',
                 'city', 'state', 'pin')}
          ),
-        ('Permissions', {'fields': ('is_staff',)}),
-        ('Preferences', {'fields': ()}),
+        ('Permissions', {'fields': ('is_staff', 'is_superuser', 'user_permissions')}),
     )
 
     search_fields = (
