@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
     path('super-admin/', admin.site.urls),
     path('', include('clinic.urls')),
     path('', include('registration.urls')),
